@@ -11,16 +11,7 @@ namespace Services.CuponAPI.Data
 
         }
 
-        public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
-        {
-            public AppDbContext CreateDbContext(string[] args)
-            {
-                var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-                optionsBuilder.UseNpgsql("DefaultConnection");
-
-                return new AppDbContext(optionsBuilder.Options);
-            }
-        }
+        
 
         public DbSet<Coupon> Coupons { get; set; }
     }

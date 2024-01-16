@@ -5,10 +5,10 @@ using Services.CuponAPI.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var conStrBuilder = new NpgsqlConnectionStringBuilder(
-        builder.Configuration.GetConnectionString("DefaultConnection"));
-conStrBuilder.Password = builder.Configuration["DbPassword"];
-var connection = conStrBuilder.ConnectionString;
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+//conStrBuilder.Password = builder.Configuration["DbPassword"];
+//var connection = conStrBuilder.ConnectionString;
 
 
 builder.Services.AddControllers();
