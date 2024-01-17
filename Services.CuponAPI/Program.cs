@@ -29,6 +29,23 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+ApplyMigration();
+
 app.MapControllers();
 
 app.Run();
+
+// get the appDbContext here and check if there are any pending migrations, if there are, will aplly them
+void ApplyMigration()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+        if(_db.Database.GetPendingMigrations().Count() > 0)
+        {
+            // this will automatically add all the pending migrations to the database
+            _db.Database.Migrate();
+        }
+    }
+}
